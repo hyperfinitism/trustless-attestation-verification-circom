@@ -26,7 +26,7 @@ prepare:
 	@echo "Installing third party libraries"
 	@echo "======================================"
 	npm install
-	git submodule update
+	git submodule update --init --recursive
 
 # Trusted Setup
 trusted_setup: $(TRUSTED_SETUP_FILE)
