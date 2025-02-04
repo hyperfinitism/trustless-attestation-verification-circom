@@ -225,10 +225,12 @@ fn compile_circuit<P: AsRef<Path>>(arch: &Arch, output: P) -> Result<()> {
         log::info!("Compiling the circuit: {circuit}");
 
         let out = Command::new("circom")
-            .arg(format!("./circuits/{circuit}.circom"))
+            .arg(format!("../circuits/{circuit}.circom"))
             .arg("--r1cs")
             .arg("--wasm")
             .arg("--sym")
+            .arg("-l").arg("../lib")
+            .arg("-l").arg("../node_modules")
             .arg("--c")
             .arg("--O2")
             .arg("--output")

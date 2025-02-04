@@ -1,6 +1,10 @@
 #Command Line Interface
 
-We provide a simple CLI tool that wraps circuit compilation, key preparation, and proof generation functionalities. You can use `cargo` to perform the following operations:
+Note: The Rust-based CLI is no longer maintained, please refer to our Makefile for CLI functionalities.
+
+We provide a simple CLI tool that wraps circuit compilation, key preparation, and proof generation functionalities. Before trying it out, please run `make prepare` in the root directory to install all dependencies.
+
+The Rust-based CLI is in the `tool` folder, and you can use `cargo` to perform the following operations:
 
 ## Circuit Compilation
 
