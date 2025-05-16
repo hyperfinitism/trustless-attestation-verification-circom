@@ -71,11 +71,14 @@ template validate_x509_rsa(word, number_blocks, e_bits, hash_len, tbs_certificat
   // uint8_t signature[512];
   signal input signature[512];
 
-  // constraining modulus to byte values (0–255).
+  // constraining modulus and signature to byte values (0–255).
   component modulus_bytes[512];
+  component signature_bytes[512];
   for (var i = 0; i < 512; i++) {
     modulus_bytes[i] = Num2Bits(8);
+    signature_bytes[i] = Num2Bits(8);
     modulus_bytes[i].in <== modulus[i];
+    signature_bytes[i].in <== signature[i];
   }
 
   // Modulus needs to be reversed.
