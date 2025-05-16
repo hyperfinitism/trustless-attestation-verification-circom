@@ -32,11 +32,11 @@ template to_bytes_be(n) {
   to_bits.in <== in;
 
   for (var i = 0; i < n; i++) {
-    num[i] = 0;
+    var byte_val = 0;
     for (var j = 0; j < 8; j++) {
-      num[i] = num[i] * 2 + to_bits.out[i * 8 + (7 - j)];
+      byte_val = byte_val * 2 + to_bits.out[i * 8 + (7 - j)];
     }
-    out[n - 1 - i] <== num[i];
+    out[n - 1 - i] <== byte_val;
   }
 }
 
