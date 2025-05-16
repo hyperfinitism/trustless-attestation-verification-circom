@@ -20,7 +20,7 @@ pragma circom 2.1.9;
 include "../lib/hash-circuits/circuits/sha2/sha384/sha384_hash_bytes.circom";
 include "../node_modules/circomlib/circuits/bitify.circom";
 
-/// Converts a number to bits in big-endian format.
+/// Converts a number to bytes in big-endian format.
 /// 1 => [0x0, 0x0, 0x0, 0x1]
 /// 2 => [0x0, 0x0, 0x0, 0x2]
 template to_bytes_be(n) {
