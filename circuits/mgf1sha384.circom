@@ -56,7 +56,7 @@ template mgf1_sha384(seed_len, mask_len) {
   // If mask_len > 2^32 * hash_len, output "mask too long" and stop.
   assert(mask_len <= 0xffffffff * seed_len);
    // ceil(mask_len / hash_len).
-  var iterations = (mask_len \ seed_len) + 1;
+  var iterations = (mask_len + seed_len - 1) \ seed_len;
 
   // Let T be the empty octet string.
   var concatenated_string[iterations * seed_len];
