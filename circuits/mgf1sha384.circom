@@ -36,7 +36,7 @@ template to_bytes_be(n) {
     for (var j = 0; j < 8; j++) {
       num[i] = num[i] * 2 + to_bits.out[i * 8 + (7 - j)];
     }
-    out[3 - i] <== num[i];
+    out[n - 1 - i] <== num[i];
   }
 }
 
