@@ -81,11 +81,12 @@ template validate_x509_rsa(word, number_blocks, e_bits, hash_len, tbs_certificat
     signature_bytes[i].in <== signature[i];
   }
 
-  // Modulus needs to be reversed.
+  // Modulus needs to be reversed (i.e., converted to little-endian).
   signal modulus_little_endian[512];
-  for (var i = 0; i < 512; i++) {
-    modulus_little_endian[i] <== modulus[511 - i];
-  }
+  component reverse_modulus = reverse_bytes(512);
+  reverse_modulus.in <== modulus;
+  modulus_little_endian <== reverse_modulus.out;
+
   // signature needs to be reversed.
   signal signature_little_endian[512];
   for (var i = 0; i < 512; i++) {
