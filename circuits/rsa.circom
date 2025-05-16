@@ -127,7 +127,7 @@ template RsaVerifySsaPss(w, nb, e_bits, hashLen) {
     }
 
     // Must be Zeroed: padding2 == 0x0.
-    for (var i = 1; i < (512 - 49 - 49); i++) {
+    for (var i = 0; i < (512 - 49 - 49); i++) {
         db[i].out === 0x0;
     }
 
