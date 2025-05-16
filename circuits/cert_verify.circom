@@ -31,6 +31,10 @@ include "ca.circom"; // Include the hardcoded CA certificate chain.
 /// @param len The length of the input array.
 ///
 /// @note Must be aligned with 8 bytes!
+///
+/// Assumption: Each element in `buf` must already be constrained to lie in the 0–255 range (i.e., be a byte).
+/// This template does not enforce the byte-range constraint itself to avoid duplicate constraints
+/// when used in combination with helpers like `reverse_bytes`.
 template bytes_to_qword(len) {
   assert(len % 8 == 0);
 
