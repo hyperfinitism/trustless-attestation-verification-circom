@@ -45,6 +45,11 @@ template qwords_to_bytes(len) {
   }
 }
 
+// Reverses a byte array in place.
+// 
+// Assumption: Each element in `in` must already be constrained to lie in the 0–255 range (i.e., be a byte).
+// This template does not enforce this range check to avoid duplicating constraints
+// when used in combination with other helpers like `bytes_to_qword`.
 template reverse_bytes(len) {
   signal input in[len];
   signal output out[len];

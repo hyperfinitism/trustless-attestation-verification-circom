@@ -57,6 +57,19 @@ template xor_byte() {
 // 2. H = SHA384(padding1 || M' || salt)
 // 3. maskedDB = (padding_2 || salt) ^ MGF(H, 48) (^ is xor)
 // 4. sig = maskedDB || H || 0xbc
+//
+// Assumptions:
+// - Each element of `sign` is a `w`-bit limb (i.e., 0 <= sign[i] < 2^w)
+// - Each element of `modulus` is a `w`-bit limb (i.e., 0 <= modulus[i] < 2^w)
+//
+// These constraints are not enforced in this template. The caller (e.g., `validate_x509_rsa`)
+// must ensure that each element of `sign` and `modulus` is properly constrained to `w` bits.
+// This choice is intentional for performance reasons: the inputs may already be range-checked
+// on the caller's side (as is indeed the case in `validate_x509_rsa`), and duplicating those checks
+// here would unnecessarily increase the number of constraints.
+//
+// Only the `message_hashed` input signal is range-checked, as it is passed as input 
+// to `Sha384_hash_bytes_digest`, which internally applies `ToBits(8)` to each element.
 template RsaVerifySsaPss(w, nb, e_bits, hashLen) {
     signal input sign[nb];
     signal input modulus[nb];
