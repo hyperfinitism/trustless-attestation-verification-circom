@@ -74,7 +74,7 @@ template RsaVerifySsaPss(w, nb, e_bits, hashLen) {
     signal input sign[nb];
     signal input modulus[nb];
 
-    // uint8_t mHASH[6] = SHA384(tbs_certificate).
+    // uint8_t mHASH[48] = SHA384(tbs_certificate).
     signal input message_hashed[(hashLen * w) / 8];
 
     // sign ** exp mod modulus
