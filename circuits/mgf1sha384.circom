@@ -20,23 +20,25 @@ pragma circom 2.1.9;
 include "../lib/hash-circuits/circuits/sha2/sha384/sha384_hash_bytes.circom";
 include "../node_modules/circomlib/circuits/bitify.circom";
 
-/// Converts a number to bits in big-endian format.
+/// Converts a number to bytes in big-endian format.
 /// 1 => [0x0, 0x0, 0x0, 0x1]
 /// 2 => [0x0, 0x0, 0x0, 0x2]
 template to_bytes_be(n) {
   signal input in;
   signal output out[n];
 
+  assert(n <= 31)
+
   component to_bits = Num2Bits(n * 8);
   var num[n];
   to_bits.in <== in;
 
   for (var i = 0; i < n; i++) {
-    num[i] = 0;
+    var byte_val = 0;
     for (var j = 0; j < 8; j++) {
-      num[i] = num[i] * 2 + to_bits.out[i * 8 + (7 - j)];
+      byte_val = byte_val * 2 + to_bits.out[i * 8 + (7 - j)];
     }
-    out[3 - i] <== num[i];
+    out[n - 1 - i] <== byte_val;
   }
 }
 
@@ -54,7 +56,7 @@ template mgf1_sha384(seed_len, mask_len) {
   // If mask_len > 2^32 * hash_len, output "mask too long" and stop.
   assert(mask_len <= 0xffffffff * seed_len);
    // ceil(mask_len / hash_len).
-  var iterations = (mask_len \ seed_len) + 1;
+  var iterations = (mask_len + seed_len - 1) \ seed_len;
 
   // Let T be the empty octet string.
   var concatenated_string[iterations * seed_len];
