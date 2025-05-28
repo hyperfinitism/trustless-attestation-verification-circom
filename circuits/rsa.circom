@@ -74,7 +74,7 @@ template RsaVerifySsaPss(w, nb, e_bits, hashLen) {
     signal input sign[nb];
     signal input modulus[nb];
 
-    // uint64_t mHASH[6] = SHA384(tbs_certificate).
+    // uint8_t mHASH[48] = SHA384(tbs_certificate).
     signal input message_hashed[(hashLen * w) / 8];
 
     // sign ** exp mod modulus
@@ -127,7 +127,7 @@ template RsaVerifySsaPss(w, nb, e_bits, hashLen) {
     }
 
     // Must be Zeroed: padding2 == 0x0.
-    for (var i = 1; i < (512 - 49 - 49); i++) {
+    for (var i = 0; i < (512 - 49 - 49); i++) {
         db[i].out === 0x0;
     }
 
