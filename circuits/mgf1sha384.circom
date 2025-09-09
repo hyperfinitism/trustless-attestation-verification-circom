@@ -27,7 +27,7 @@ template to_bytes_be(n) {
   signal input in;
   signal output out[n];
 
-  assert(n <= 31)
+  assert(n <= 31);
 
   component to_bits = Num2Bits(n * 8);
   var num[n];
