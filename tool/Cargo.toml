@@ -16,6 +16,6 @@ p384 = { version = "0.13.0", features = ["ecdsa-core"] }
 rand = "0.8.5"
 ring = { version = "0.17.8", features = ["std"] }
 rsa = { version = "0.9.6", features = ["sha2"] }
-sev = "4.0.0"
+sev = "7.1.0"
 sha2 = "0.10.8"
 x509-cert = "0.2.5"

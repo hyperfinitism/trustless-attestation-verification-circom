@@ -26,7 +26,7 @@ use anyhow::{anyhow, Result};
 use clap::{Parser, Subcommand, ValueEnum};
 use json::object;
 use log::LevelFilter;
-use sev::firmware::guest::AttestationReport;
+use sev::{firmware::guest::AttestationReport, parser::ByteParser};
 use sha2::{Digest, Sha384};
 use x509_cert::{
     der::{Decode, DecodePem, Encode},
@@ -385,7 +385,7 @@ fn prepare_input<P: AsRef<Path>>(
 ) -> Result<()> {
     let vcek = fs::read(vcek_path)?;
     let report_raw = fs::read(report_path)?;
-    let report = bincode::deserialize::<AttestationReport>(&report_raw)?;
+    let report = AttestationReport::from_bytes(&report_raw)?;
 
     let r = report.signature.r()[..0x30]
         .iter()
